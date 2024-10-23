@@ -1,27 +1,25 @@
-# TemplateDrivenForm
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
 
-## Development server
+what is touched in forms?
+in ngForm object we have property called touched so using that i perform css in my input fields
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+what is dirty in forms?
+so if any field of form is changed so the whole form will be consider the dirty
+dirty is ngForm object property .
 
-## Code scaffolding
+Looping of radio buttons using *ngFor by creatinng array of Gender
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Validation In Form:
+Required: so it checks the fields have value or not
+Email: so this checks that email format is correct it has built in Regex to check email
+Disabled: use on submit button to check if the form is not valid so stop it from submitting
+Custom Validations In Form:
+Added some error msgs on fields using ngModel and form refrences
+2way data binding using NgModel to show the entered  data
+Grouping of Form Control
+Using ngModelGroup adding validations in address fields
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Set Value & Patch Value:
+setValue(): example is if I have to create a username using firstname lastname Date of birth so I use this setValue in which I declare all the long object 
+setPatch():
+In patch we only describe the structure which of property which we want to update
