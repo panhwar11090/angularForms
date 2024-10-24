@@ -1,42 +1,30 @@
 <section class="container" [ngClass]="{'form-shadow' : registerationForm.touched}">
   <header>Registration Form</header>
 
-  <form class="form" (ngSubmit)="OnFormSubmitted()" #registerationForm="ngForm" >
+  <form class="form" (ngSubmit)="OnFormSubmitted()" #registerationForm="ngForm">
     <div class="column">
       <div class="input-box">
-        <!-- in this code line of code we learn how to add css using formm refrence and touched property -->
-        <input type="text" placeholder="First Name" name="firstname" required 
-          [(ngModel)] = "firstName" 
-          [ngClass] = "{'input-border': registerationForm.touched}" #fname="ngModel"
-        />
+        <input type="text" placeholder="First Name" name="firstName" required ngModel [(ngModel)]="firstName" [ngClass]="{'input-border': registerationForm.touched}" #fname="ngModel" />
         <div>
           <small *ngIf="fname.invalid && fname.touched">First Name is required</small>
-          <span *ngIf="firstName">You Entered : {{firstName}}</span>
-        </div>
-      </div> 
-
-      <div class="input-box">
-        <input type="text" placeholder="Last Name" name="lastname" 
-          [(ngModel)]="lastName"
-          required #lname="ngModel"
-        />
-        <!-- //error message showing through refrence and ngModel -->
-        <!-- 2way data binding usinng ngModel to show the Entered data -->
-        <div>
-          <small *ngIf="lname.invalid && lname.touched">Last Name is required</small>
-          <span *ngIf="lastName">You Entered : {{lastName}}</span>
+          <span *ngIf="firstName">You Entered: {{firstName}}</span>
         </div>
       </div>
-    </div>    
+
+      <div class="input-box">
+        <input type="text" placeholder="Last Name" name="lastName" required ngModel [(ngModel)]="lastName" #lname="ngModel" />
+        <div>
+          <small *ngIf="lname.invalid && lname.touched">Last Name is required</small>
+          <span *ngIf="lastName">You Entered: {{lastName}}</span>
+        </div>
+      </div>
+    </div>
 
     <div class="input-box">
-      <input type="text" placeholder="Email" name="email" email 
-        [(ngModel)]="emailAddress" 
-        required #email="ngModel"
-      />
+      <input type="text" placeholder="Email" name="emailAddress" email required [(ngModel)]="emailAddress" #email="ngModel" />
       <div>
         <small *ngIf="email.invalid && email.touched">Email is required</small>
-        <span *ngIf="emailAddress">You Entered : {{emailAddress}}</span>
+        <span *ngIf="emailAddress">You Entered: {{emailAddress}}</span>
       </div>
     </div>
 
@@ -45,38 +33,28 @@
         <input type="number" placeholder="Phone Number" name="phone" ngModel />
       </div>
       <div class="input-box">
-        <input type="date" placeholder="Date of Birth" name="dob"
-          [(ngModel)]="dateofbirth" required #tempdob="ngModel" 
-        />
+        <input type="date" placeholder="Date of Birth" name="dateofbirth" required [(ngModel)]="dateofbirth" #tempdob="ngModel" />
       </div>
     </div>
 
     <div class="input-box">
-      <input type="text" placeholder="username" name="username"
-       ngModel required #uname="ngModel"
-      />
-      <button class="btn-gen-username" 
-        [disabled]="fname.invalid || lname.invalid || tempdob.invalid" 
-        (click)="GenerateUsername()"
-      >
-        Create a Username
-      </button>
+      <input type="text" placeholder="Username" name="username" required [(ngModel)]="username" #uname="ngModel" />
+      <button class="btn-gen-username" type="button" [disabled]="fname.invalid || lname.invalid || tempdob.invalid" (click)="GenerateUsername()">Create a Username</button>
     </div>
 
     <div class="gender-box">
       <h3>Gender</h3>
       <div class="gender-option">
-        <!-- Looping of radio buttons using *ngFor by creatinng array of Gender -->
-        <div class="gender" *ngFor= "let gen of Genders">
-          <input type="radio" [id]="gen.id" [value]="gen.value" name="gender"  ngModel/>
-          <label for="check-male">{{gen.display}}</label>
+        <div class="gender" *ngFor="let gen of Genders">
+          <input type="radio" [id]="gen.id" [value]="gen.value" name="gender" ngModel />
+          <label [for]="gen.id">{{gen.display}}</label>
         </div>
       </div>
     </div>
 
     <div class="input-box address" ngModelGroup="address" #addr="ngModelGroup">
       <label>Address</label>
-      <input type="text" placeholder="Street address" name="streetAddress" [(ngModel)]="streetAddress1" required />
+      <input type="text" placeholder="Street address" name="streetAddress1" [(ngModel)]="streetAddress1" required />
       <input type="text" placeholder="Street address line 2" name="streetAddressLine2" [(ngModel)]="streetAddressLine2" />
       <div class="column">
         <div class="select-box">
@@ -95,9 +73,37 @@
         <input type="number" placeholder="Postal code" name="postalCode" [(ngModel)]="postalCode" required />
       </div>
     </div>
-    <!-- this disabled binding is used to check form is valid or not -->
-    <small *ngIf="addr.invalid && addr.touched">*Some of the address field is not correct</small> 
-    <input type="submit" value="Submit" class="submit-btn"  [disabled]="!registerationForm.valid"> 
-   
+
+    <div class="column">
+      <input type="checkbox" name="agreement" [(ngModel)]="IsAgreed" />
+      <label for="agreement">I agree to terms & conditions</label><br />
+    </div>
+
+    <small *ngIf="addr.invalid && addr.touched">*Some of the address fields are not correct</small>
+    <input type="submit" value="Submit" class="submit-btn" [disabled]="!registerationForm.valid" />
   </form>
+</section>
+
+
+<section class="user-detail-container">
+  <div class="user-details-container">
+    <div class="user-avatar">
+      <p>{{firstName.slice(0,1).toUpperCase()}}</p>
+    </div>
+    <div class="user-details">
+      <div class="user-name">
+        <h2>{{ firstName }} {{ lastName }}</h2>
+      </div>
+      <p><b>Email:</b> {{emailAddress}} </p>
+      <p><b>Username:</b> {{username}} </p>
+      <p><b>Date of birth:</b>{{dateofbirth}}</p>
+      <div class="user-name">
+        <h3>Address</h3>
+      </div>
+      <span>{{country }}</span>.
+      <span>{{ city }}</span>.
+      <span>{{ region }}</span>.
+      <span> {{ postalCode }}</span>
+    </div>
+  </div>
 </section>
